@@ -1,0 +1,12 @@
+<div class="col-md-3 mb-4">
+  <div class="card">
+    <img src="https://via.placeholder.com/150" class="card-img-top" alt="Image">
+    <div class="card-body">
+      <p class="card-text"><%= article.title %></p>
+      <div class="d-flex justify-content-between">
+        <span><%= article.like.count %> ❤️</span>
+        <span><%= time_ago_in_words(article.created_at) %></span>
+      </div>
+    </div>
+  </div>
+</div>
