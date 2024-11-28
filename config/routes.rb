@@ -21,4 +21,7 @@ Rails.application.routes.draw do
   get "articles/write" => "articles#write"
   post "articles/create" => "articles#create"
   post "articles/search" => "articles#search"
+
+  #usersのルートを設定
+  resources :users, only: [:new, :create]
 end

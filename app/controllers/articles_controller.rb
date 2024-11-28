@@ -18,6 +18,6 @@ class ArticlesController < ApplicationController
     end
     def create
         Article.create(text: params[:text], content: params[:content], user: User.first, featured: true)
-        redirect_to("/articles/mockup")
+        redirect_to root_path
     end
 end
