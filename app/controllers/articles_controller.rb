@@ -17,7 +17,7 @@ class ArticlesController < ApplicationController
     def write
     end
     def create
-        Article.create(user: User.find(1), title: params[:title], content: params[:content], featured: true)
+        Article.create(user: User.first, title: params[:title], content: params[:content], featured: true)
         redirect_to root_path
     end
 end

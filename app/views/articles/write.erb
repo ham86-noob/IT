@@ -39,9 +39,9 @@
       <div class="col-9">
         <h3 class="mb-3">記事の作成</h3>
         <%= form_tag "/articles/create", class:"d-flex w-50" do %>
-          <p>タイトル</p>
+          <div>タイトル</div>
           <input type="text" class="form-control me-2" name="title">
-          <p>コンテンツ</p>
+          <div>コンテンツ</div>
           <input type="text" class="form-control me-2" name="content">
           <button class="btn btn-outline-primary" type="submit">作成</button>
         <% end %>

@@ -5,7 +5,7 @@ class UsersController < ApplicationController
     
       def create
         # params[:user] で送信されたデータを使ってユーザー情報を処理します
-        if params[:password] != params[:password_confirmation]?
+        if params[:password] != params[:password_confirmation]
             flash[:alert] = "入力に誤りがあります。"
             render :new
         else
