@@ -8,3 +8,9 @@
  *
  * Consider organizing styles into separate files for maintainability.
  */
+
+ .list-group-item:hover {
+    background-color: #007bff;  /* 例えば、ブルーの背景色 */
+    color: white;  /* テキストの色を白に変更 */
+    cursor: pointer;  /* ホバー時にポインタを表示 */
+  }
