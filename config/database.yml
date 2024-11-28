@@ -16,8 +16,8 @@ test:
   database: <%= ENV['DB_TEST_NAME'] %>
 
 production:
-  <<: *default
   cable: &cable_db
+    <<: *default
     database: <%= ENV['DB_PROD_NAME'] %>
   queue: *cable_db
   cache: *cable_db
