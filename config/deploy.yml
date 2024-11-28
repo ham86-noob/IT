@@ -34,14 +34,7 @@ registry:
 # Inject ENV variables into containers (secrets come from .kamal/secrets).
 env:
   secret:
-    - RAILS_MASTER_KEY
-    - DB_USERNAME
-    - PG_PASSWORD
-    - DB_HOST
-    - DB_PORT
-    - DB_DEV_NAME
-    - DB_TEST_NAME
-    - DB_PROD_NAME
+    #- RAILS_MASTER_KEY
   clear:
     # Run the Solid Queue Supervisor inside the web server's Puma process to do jobs.
     # When you start using multiple servers, you should split out job processing to a dedicated machine.
@@ -121,3 +114,31 @@ builder:
 #     port: 6379
 #     directories:
 #       - data:/data
+
+services:
+  - type: web  # サービスの種類 (webアプリケーション)
+    name: my-rails-app  # サービス名
+    env: ruby  # 環境 (Rubyアプリ用)
+    buildCommand: bundle exec rake assets:precompile  # ビルド時に実行するコマンド
+    startCommand: bundle exec puma -C config/puma.rb  # 起動時に実行するコマンド
+    envVars:  # 環境変数の設定
+      - key: RAILS_MASTER_KEY
+        value: "{{RAILS_MASTER_KEY}}"  # RAILS_MASTER_KEY 環境変数を参照
+      - key: WEB_CONCURRENCY
+        value: "{{WEB_CONCURRENCY}}"
+      - key: DATABASE_URL
+        value: "{{DATABASE_URL}}"  # データベース接続用の環境変数を参照
+      - key: DB_USERNAME
+        value: "{{DB_USERNAME}}"
+      - key: DB_HOST
+        value: "{{DB_HOST}}"
+      - key: DB_PORT
+        value: "{{DB_PORT}}"
+      - key: DB_DEV_NAME
+        value: "{{DB_DEB_NAME}}"
+      - key: DB_TEST_NAME
+        value: "{{DB_TEST_NAME}}"
+      - key: DB_PROD_NAME
+        value: "{{DB_PROD_NAME}}"
+      - key: PG_PASSWORD
+        value: "{{PG_PASSWORD}}"
