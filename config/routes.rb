@@ -18,5 +18,7 @@ Rails.application.routes.draw do
   get "articles/index" => "articles#index"
   get "articles/login" => "articles#login"
   get "articles/signup" => "articles#signup"
+  get "articles/write" => "articles#write"
+  post "articles/create" => "articles#create"
   post "articles/search" => "articles#search"
 end

@@ -14,4 +14,10 @@ class ArticlesController < ApplicationController
         @featured_articles = Article.featured.limit(4)
         @categories = Category.all
     end
+    def write
+    end
+    def create
+        Article.create(text: params[:text], content: params[:content], user: User.first, featured: true)
+        redirect_to("/articles/mockup")
+    end
 end
