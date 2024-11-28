@@ -19,3 +19,6 @@ production:
   cable:
     <<: *default
     database: <%= ENV['DB_PROD_NAME'] %>
+  queue:
+    <<: *default
+    database: <%= ENV['DB_PROD_NAME'] %>
