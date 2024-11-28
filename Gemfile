@@ -21,7 +21,7 @@ gem "stimulus-rails"
 gem "jbuilder"
 
 #フォームのスタイリング
-gem 'bootstrap', '~> 5.0.0'
+# gem 'bootstrap', '~> 5.3.3'
 
 
 

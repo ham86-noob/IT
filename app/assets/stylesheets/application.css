@@ -8,8 +8,8 @@
  *
  * Consider organizing styles into separate files for maintainability.
  */
- 
- @import "bootstrap";
+
+ /*@import "bootstrap";*/
 
  .list-group-item:hover {
     background-color: #007bff;  /* 例えば、ブルーの背景色 */
