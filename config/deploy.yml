@@ -120,7 +120,7 @@ services:
     name: my-rails-app  # サービス名
     env: ruby  # 環境 (Rubyアプリ用)
     buildCommand: bundle exec rake assets:precompile  # ビルド時に実行するコマンド
-    startCommand: bundle exec puma -C config/puma.rb  # 起動時に実行するコマンド
+    startCommand: bundle exec puma -C config/puma.rb; rails db:migrate # 起動時に実行するコマンド
     envVars:  # 環境変数の設定
       - key: RAILS_MASTER_KEY
         value: "{{RAILS_MASTER_KEY}}"  # RAILS_MASTER_KEY 環境変数を参照
