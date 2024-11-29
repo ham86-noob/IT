@@ -3,10 +3,16 @@ class ArticlesController < ApplicationController
         @featured_articles = Article.featured.limit(4)
         @categories = Category.all
     end
+
     def login
     end
     def signup
     end
+
+    def modoru
+        redirect_to "/articles/mockup"
+    end
+
     def search
         #params[:keyword]を使って検索
     end
@@ -17,7 +23,8 @@ class ArticlesController < ApplicationController
     def write
     end
     def create
-        Article.create(user: User.first, title: params[:title], content: params[:content], featured: true)
-        redirect_to root_path
+        article = Article.new(user: User.first, title: params[:title], content: params[:content], featured: true)
+        article.save
+        redirect_to "/articles/mockup"
     end
 end
