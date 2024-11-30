@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :user_deviseds
+  devise_for :users
   
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -27,8 +27,6 @@ Rails.application.routes.draw do
   post "articles/create" => "articles#create"
   post "articles/search" => "articles#search"
 
-
+  get "/users/new" => "users#new"
   post "/users/create" => "users#create"
-  #usersのルートを設定
-  resources :users, only: [:new, :create]
 end

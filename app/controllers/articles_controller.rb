@@ -5,10 +5,10 @@ class ArticlesController < ApplicationController
     end
 
     def login
-        redirect_to new_user_devised_session_path
+        redirect_to new_user_session_path
     end
     def signup
-        redirect_to new_user_devised_registration_path
+        redirect_to new_user_registration_path
     end
 
     def modoru
