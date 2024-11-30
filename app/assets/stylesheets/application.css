@@ -21,4 +21,7 @@
     color: gray; /* 灰色にする */
     pointer-events: none; /* クリックを無効にする */
   }
-  
+
+  .hidden {
+    display: none;
+  }

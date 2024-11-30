@@ -18,10 +18,17 @@ class ArticlesController < ApplicationController
         @categories = Category.all
     end
     def write
+        unless user_signed_in?
+            redirect_to new_user_session_path
+        end
     end
     def create
-        article = Article.new(user: User.first, title: params[:title], content: params[:content], featured: true)
-        article.save
-        redirect_to "/articles/mockup"
+        if user_signed_in?
+            article = Article.new(user: current_user, title: params[:title], content: params[:content], featured: true)
+            article.save
+            redirect_to "/articles/mockup"
+        else
+            #使うつもりはないエラー
+        end
     end
 end

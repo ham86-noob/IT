@@ -10,10 +10,28 @@
       <button class="btn btn-outline-primary" type="submit">検索</button>
     <% end %>
 
-    <!-- ログイン・登録ボタン -->
     <div>
-      <%= link_to "会員登録", new_user_registration_path, class: "btn btn-outline-success" %>
-      <%= link_to "ログイン", new_user_session_path, class: "btn btn-outline-secondary" %>
+      <% if user_signed_in? %>
+        <button type="button" class="btn dropdown-toggle border-white text-white" id="dropdownMenu" data-bs-toggle="dropdown" aria-expaneded="false">
+          <%= image_tag "default_icon.png", class:"rounded-circle", alt:"メニュー", size:"48x48"%>
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
+          <li class="p-4 border-b">
+            <p class="font-bold text-sm"><%= current_user.username %></p>
+            <p class="text-xs text-gray-500">クリエイターページ</p>
+          </li>
+          <li><%= button_to '自分の記事', root_path, method: :get, class:"btn btn-light w-100" %></li>
+          <li><%= button_to 'スキした記事', root_path, method: :get, class:"btn btn-light w-100" %></li>
+          <li><%= button_to 'ログアウト', destroy_user_session_path, method: :destroy, class:"btn btn-light w-100" %></li>
+        </ul>
+          
+
+        <%= link_to 'ログアウト', destroy_user_session_path, method: :delete, class: 'btn btn-danger' %>
+      <% else %>
+        <!-- ログイン・登録ボタン -->
+        <%= link_to "会員登録", new_user_registration_path, class: "btn btn-outline-success" %>
+        <%= link_to "ログイン", new_user_session_path, class: "btn btn-outline-secondary" %>
+      <% end %>
     </div>
   </div>
 
