@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  get "users/index"
+  devise_for :user_deviseds
+  
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
@@ -26,6 +27,8 @@ Rails.application.routes.draw do
   post "articles/create" => "articles#create"
   post "articles/search" => "articles#search"
 
+
+  post "/users/create" => "users#create"
   #usersのルートを設定
   resources :users, only: [:new, :create]
 end
