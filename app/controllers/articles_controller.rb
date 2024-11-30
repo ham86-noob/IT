@@ -1,9 +1,4 @@
 class ArticlesController < ApplicationController
-    def index
-        @featured_articles = Article.featured.limit(4)
-        @categories = Category.all
-    end
-
     def login
         redirect_to new_user_session_path
     end

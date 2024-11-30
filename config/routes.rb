@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
   devise_for :users
+
+  #delete通信のはずなのに、getがないとエラーがおきてしまうので追加
+  devise_scope :user do
+    get '/users/sign_out' => 'devise/sessions#destroy'
+  end
   
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -17,16 +22,10 @@ Rails.application.routes.draw do
   root "articles#mockup"
 
   get "articles/mockup" => "articles#mockup"
-  get "articles/index" => "articles#index"
   get "articles/login" => "articles#login"
   get "articles/signup" => "articles#signup"
   get "articles/write" => "articles#write"
 
-  post "articles/modoru" => "articles#modoru"
-
   post "articles/create" => "articles#create"
   post "articles/search" => "articles#search"
-
-  get "/users/new" => "users#new"
-  post "/users/create" => "users#create"
 end
