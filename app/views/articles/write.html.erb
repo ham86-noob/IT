@@ -5,21 +5,28 @@
     <h1><%= link_to "I T", "/articles/mockup" %></h1>
 
     <!-- 検索フォーム -->
-    <%= form_tag "/articles/search", class:"d-flex w-50" do %>
-      <input type="text" class="form-control me-2" placeholder="キーワードやクリエイターで検索" name="keyword">
-      <button class="btn btn-outline-primary" type="submit">検索</button>
-    <% end %>
+    
+    <input type="text" class="form-control d-flex me-2 w-50" placeholder="キーワードやクリエイターで検索" name="keyword">
+    <%= link_to '検索', root_path, class: 'btn btn-primary' %>
 
-    <div>
+    <div class="d-flex">
       <% if user_signed_in? %>
-        <button type="button" class="btn dropdown-toggle border-white text-white" id="dropdownMenu" data-bs-toggle="dropdown" data-bs-offset="-50, 0" aria-expaneded="false">
-          <%= image_tag "default_icon.png", class:"rounded-circle", alt:"メニュー", size:"48x48"%>
+        <button type="button" class="btn dropdown-toggle border-white text-white" id="dropdownMenu" data-bs-toggle="dropdown" data-bs-offset="-50, 0" data-bs-auto-close="outside" aria-expaneded="false">
+          <%= image_tag "default_icon.png", class:"rounded-circle", alt:"メニュー", size:"32x32"%>
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
-          <li class="p-4 border-b">
-            <p class="font-bold text-sm"><%= current_user.username %></p>
-            <p class="text-xs text-gray-500">クリエイターページ</p>
+          <li class="">
+            <div class="row">
+              <div class="col ms-3 mt-1 clearfix">
+                <%= image_tag "default_icon.png", class:"rounded-circle mt-2 ", alt:"メニュー", size:"32x32"%>
+                <div class="col float-end ms-3 me-2">
+                  <span class="fw-bolder"><%= current_user.username %></span>
+                  <p class="text-sm-start fw-light">クリエイターページ</p>
+                </div>
+              </div>
+            </div>
           </li>
+          <li><hr class="dropdown-divider"></li>
           <li><%= button_to '自分の記事', root_path, method: :get, class:"btn btn-light w-100" %></li>
           <li><%= button_to 'スキした記事', root_path, method: :get, class:"btn btn-light w-100" %></li>
           <li><%= button_to 'ログアウト', destroy_user_session_path, method: :destroy, class:"btn btn-light w-100" %></li>
@@ -54,7 +61,7 @@
         <label for="title">タイトル</label>
         <input type="text" class="form-control me-2" name="title">
         <label for="content">コンテンツ</label>
-        <input type="text" class="form-control me-2" name="content">
+        <textarea class="form-control me-2" name="content" rows="8" cols="50"></textarea>
         <button class="btn btn-outline-primary" type="submit">作成</button>
       <% end %>
 
