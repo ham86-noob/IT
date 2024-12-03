@@ -1,11 +1,15 @@
-<div class="col-md-3 mb-4">
+<div class="mb-4 px-2 article-card">
   <div class="card">
-    <%= image_tag "150.png", class:"card-img-top", alt: "エラー" %>
+    <% if article.image.present? %>
+      <%= image_tag article.image, size: "160x90", class:"card-img-top", alt: "エラー"%>
+    <% else %>
+      <%= image_tag "160x90.png", size: "160x90" , class:"card-img-top", alt: "エラー" %>
+    <% end %>
     <div class="card-body">
-      <p class="card-text"><%= article.title %></p>
+      <p class="card-text text-truncate"><%= article.title %></p>
       <div class="d-flex justify-content-between">
-        <span><%= article.like.count %> ❤️</span>
-        <span><%= time_ago_in_words(article.created_at) %></span>
+        <span>❤️ <%= article.like.count %></span>
+        <span class="fw-light"><%= time_ago_in_words(article.created_at) %></span>
       </div>
     </div>
   </div>

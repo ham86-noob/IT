@@ -22,11 +22,7 @@ Rails.application.routes.draw do
 
   root "articles#mockup"
 
-  get "articles/mockup" => "articles#mockup"
-  get "articles/login" => "articles#login"
-  get "articles/signup" => "articles#signup"
-  get "articles/write" => "articles#write"
-
-  post "articles/create" => "articles#create"
-  post "articles/search" => "articles#search"
+  #リソースベースのルーティング（以下リソースルーティング）を使うことで、指定のリソースコントローラでよく使われるすべてのルーティングを手軽に宣言できます。
+  #resourcesを宣言するだけで、コントローラのindex、show、new、edit、create、update、destroyアクションを個別に宣言しなくても1行で宣言が完了します。
+  resource :article, only:  [:new, :create]
 end

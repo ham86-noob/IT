@@ -1,8 +1,8 @@
 
-<div class="container my-4">
+<div class="my-4">
 <!-- ヘッダー -->
 <div class="d-flex justify-content-between align-items-center mb-4">
-  <h1><%= link_to "I T", "/articles/mockup" %></h1>
+  <h1 ><%= link_to "I T", root_path %></h1>
 
   <!-- 検索フォーム -->
   
@@ -11,8 +11,8 @@
 
   <div class="d-flex">
     <% if user_signed_in? %>
-      <button type="button" class="btn dropdown-toggle border-white text-white" id="dropdownMenu" data-bs-toggle="dropdown" data-bs-offset="-50, 0" data-bs-auto-close="outside" aria-expaneded="false">
-        <%= image_tag "default_icon.png", class:"rounded-circle", alt:"メニュー", size:"32x32"%>
+      <button type="button" class="btn dropdown-toggle border-white text-white" id="dropdownMenu" data-bs-toggle="dropdown" data-bs-offset="-70, 0" data-bs-auto-close="outside" aria-expaneded="false">
+        <%= image_tag "default_icon.png", class:"rounded-circle", alt:"メニュー", size:"40x40"%>
       </button>
       <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
         <li class="">
@@ -31,13 +31,14 @@
         <li><%= button_to 'スキした記事', root_path, method: :get, class:"btn btn-light w-100" %></li>
         <li><%= button_to 'ログアウト', destroy_user_session_path, method: :destroy, class:"btn btn-light w-100" %></li>
       </ul>
+      
         
 
-      <%= link_to 'ログアウト', destroy_user_session_path, method: :delete, class: 'btn btn-danger' %>
+      <%#= link_to 'ログアウト', destroy_user_session_path, method: :delete, class: 'btn btn-danger' %>
     <% else %>
       <!-- ログイン・登録ボタン -->
-      <%= link_to "会員登録", new_user_registration_path, class: "btn btn-outline-success" %>
-      <%= link_to "ログイン", new_user_session_path, class: "btn btn-outline-secondary" %>
+      <%= link_to "会員登録", new_user_registration_path, class: "btn btn-success me-2" %>
+      <%= link_to "ログイン", new_user_session_path, class: "btn btn-secondary" %>
     <% end %>
   </div>
 </div>
@@ -48,36 +49,19 @@
     <div class="col-3">
       <ul class="list-group">
         <li class="list-group-item "><span class="text-muted">つかう</span></li>
-        <li class="list-group-item"><%= link_to 'つくる', "/articles/write" %></li>
+        <li class="list-group-item"><%= link_to 'つくる', new_article_path %></li>
         <li class="list-group-item"><span class="text-muted">みる</span></li>
         <li class="list-group-item"><span class="text-muted">おきにいり</span></li>
       </ul>
     </div>
 
     <!-- メイン記事 -->
-    <div class="col-9">
+    <div class="col-8">
       <h3 class="mb-3">今日の注目記事</h3>
-      <div class="row">
+      <div class="d-flex">
         <%= render partial: "/articles/mockup_article_card", 
                 collection: @featured_articles, 
                 as: :article %>
-        <!-- 他のカードも追加可能 -->
-      </div>
-
-      <h3 class="mb-3">生成AI</h3>
-      <div class="row">
-        <div class="col-md-4 mb-4">
-          <div class="card">
-            <img src="https://via.placeholder.com/150" class="card-img-top" alt="Image">
-            <div class="card-body">
-              <p class="card-text">生成系AIで未来を切り拓く！グループ横断テクノロジー</p>
-              <div class="d-flex justify-content-between">
-                <span>38 ❤️</span>
-                <span>1日前</span>
-              </div>
-            </div>
-          </div>
-        </div>
         <!-- 他のカードも追加可能 -->
       </div>
     </div>
