@@ -11,7 +11,7 @@
 
     <div class="d-flex">
       <% if user_signed_in? %>
-        <button type="button" class="btn dropdown-toggle border-white text-white" id="dropdownMenu" data-bs-toggle="dropdown" data-bs-offset="-50, 0" data-bs-auto-close="outside" aria-expaneded="false">
+        <button type="button" class="btn dropdown-toggle border-white text-white" id="dropdownMenu" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expaneded="false">
           <%= image_tag "default_icon.png", class:"rounded-circle", alt:"メニュー", size:"32x32"%>
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
@@ -49,7 +49,7 @@
       <ul class="list-group">
         <li class="list-group-item "><span class="text-muted">つかう</span></li>
         <li class="list-group-item"><%= link_to 'つくる', new_article_path %></li>
-        <li class="list-group-item"><span class="text-muted">みる</span></li>
+        <li class="list-group-item"><%= link_to 'みる', root_path %></li>
         <li class="list-group-item"><span class="text-muted">おきにいり</span></li>
       </ul>
     </div>

@@ -1,7 +1,7 @@
 class Article < ApplicationRecord
   belongs_to :user
-  has_many :like
-  has_one_attached :image
+  has_many :like, dependent: :destroy
+  has_one_attached :image, dependent: :destroy
   
   validates :title, presence: true
   validates :content, presence: true

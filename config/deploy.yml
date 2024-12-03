@@ -146,3 +146,5 @@ services:
         value: "{{ACCESS_KEY_ID}}"
       - key: SECRET_ACCESS_KEY
         value: "{{SECRET_ACCESS_KEY}}"
+      - key: WELCOME_MAILER_PASSWORD
+        value: "{{WELCOME_MAILER_PASSWORD}}"
