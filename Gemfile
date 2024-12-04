@@ -75,4 +75,4 @@ end
 
 gem "devise", "~> 4.9"
 
-gem "acts_as_follower", github: "tcocca/acts_as_follower"
+gem 'acts_as_follower', github: 'tcocca/acts_as_follower', branch: 'master'

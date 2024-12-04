@@ -27,3 +27,9 @@ module ItProject
     config.i18n.default_locale = :ja
   end
 end
+
+# rails g acts_as_follower の実行時に書いておけばなんとか動く。暫定的な処理。
+# class ActiveRecord::Base
+#   singleton_class.attr_accessor :timestamped_migrations
+#   self.timestamped_migrations = true
+# end

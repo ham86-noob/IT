@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_12_04_014425) do
+ActiveRecord::Schema[8.0].define(version: 2024_12_04_035917) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -86,6 +86,16 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_04_014425) do
     t.index ["user_id"], name: "index_messages_on_user_id"
   end
 
+  create_table "relationships", force: :cascade do |t|
+    t.bigint "following_id"
+    t.bigint "follower_id"
+    t.boolean "block", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["follower_id"], name: "index_relationships_on_follower_id"
+    t.index ["following_id"], name: "index_relationships_on_following_id"
+  end
+
   create_table "rooms", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -119,5 +129,11 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_04_014425) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "articles", "users"
+  add_foreign_key "entries", "rooms"
+  add_foreign_key "entries", "users"
   add_foreign_key "likes", "articles"
+  add_foreign_key "messages", "rooms"
+  add_foreign_key "messages", "users"
+  add_foreign_key "relationships", "users", column: "follower_id"
+  add_foreign_key "relationships", "users", column: "following_id"
 end

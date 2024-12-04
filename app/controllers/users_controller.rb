@@ -1,16 +1,27 @@
 class UsersController < ApplicationController
     before_action :authenticate_user!, only: [:show]
     
+    def index
+        @users=User.all
+    end
+
     def show
         @user=User.find(params[:id])
-        @currentUserEntry=Entry.where(user_id: current_user.id)
-        @userEntry=Entry.where(user_id: @user.id)
+
+        #相互フォローならば
+        @canCreateRoom = Relationship.exists?(follower_id: current_user.id, following_id: @user.id) && Relationship.exists?(follower_id: @user.id, following_id: current_user.id)
+
+        currentUserEntry=Entry.where(user_id: current_user.id)
+        userEntry=Entry.where(user_id: @user.id)
+
+        #同室の部屋があるかどうかの確認
         unless @user.id == current_user.id
-            @currentUserEntry.each do |cu|
-                @userEntry.each do |u|
-                if cu.room_id == u.room_id then
-                    @isRoom = true
-                    @roomId = cu.room_id
+            currentUserEntry.each do |cu|
+                userEntry.each do |u|
+                    if cu.room_id == u.room_id then
+                        @isRoom = true
+                        @roomId = cu.room_id
+                    end
                 end
             end
             if @isRoom
@@ -20,26 +31,16 @@ class UsersController < ApplicationController
             end
         end
     end
-      
-    def follow
-        @user = User.find(params[:user_id])
-        current_user.follow(@user)
-        redirect_to user_path(@user)
+
+    def followings
+        # フォローしている人の一覧
+        @user = User.find(params[:id])
+        @users = @user.followings
     end
 
-    def unfollow
-        @user = User.find(params[:user_id])
-        current_user.stop_following(@user)
-        redirect_to user_path(@user)
+    def followers
+        # フォローされている人の一覧    
+        @user = User.find(params[:id])
+        @users = @user.followers
     end
-
-
-    def follow_list
-        @user = User.find(params[:user_id])
-    end
-
-    def follower_list
-        @user = User.find(params[:user_id])
-    end
-
 end

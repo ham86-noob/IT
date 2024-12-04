@@ -1,0 +1,47 @@
+<div class="col-md-12 border_right border_left">
+  <div class="d-flex">
+    <div>
+      <%= link_to root_path do %>
+        <i class="fa-solid fa-arrow-left arrow-left"></i>
+      <% end %>
+    </div>
+    <div class="profile_top_name">
+      <h3>
+        <%= @user.username %> さんがフォローしている人
+      </h3>
+
+      <table class="table text-center">
+        <thead>
+          <tr>
+            <th>Users</th>
+            <th></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @users.each do |user| %>
+            <tr>
+              <td>
+                <% if false %><% user.icon.attached? %> 
+                  <%= link_to user_path(user) do %>
+                    <%= image_tag user.icon, class: "icon_img" %>
+                  <% end %>
+                <% else %>
+                  <%= link_to user_path(user) do %>
+                    <%= image_tag "default_icon.png", class:"rounded-circle mt-2 ", alt:"メニュー", size:"32x32"%>
+                  <% end %>
+                <% end %>
+              </td>
+              <td></td>
+              <td>
+                <%= link_to user_path(user), class: "text_deco_no" do %>
+                  <%= user.username %>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

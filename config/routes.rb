@@ -7,12 +7,6 @@ Rails.application.routes.draw do
     post '/users/sign_out' => 'devise/sessions#destroy'
   end
 
-  put 'users/follow/:user_id',to: 'users#follow'
-  put 'users/unfollow/:user_id',to: 'users#unfollow'
-  get 'users/follow_list/:user_id',to: 'users#follow_list'
-  get 'users/follower_list/:user_id',to:'users#follower_list'
-
-  
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
@@ -31,8 +25,13 @@ Rails.application.routes.draw do
   #リソースベースのルーティング（以下リソースルーティング）を使うことで、指定のリソースコントローラでよく使われるすべてのルーティングを手軽に宣言できます。
   #resourcesを宣言するだけで、コントローラのindex、show、new、edit、create、update、destroyアクションを個別に宣言しなくても1行で宣言が完了します。
   resource :article, only:  [:new, :create]
-  resources :users, only: [:show,:edit,:update]
   resources :messages, only: [:create]
-  resources :rooms, only: [:create,:show]
+  resources :rooms, only: [:create, :show]
 
+  resources :users, only: [:index, :show] do
+    member do
+      get :followings, :followers
+    end
+    resource :relationships, only: [:create, :destroy]
+  end
 end
