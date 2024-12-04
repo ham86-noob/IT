@@ -15,7 +15,11 @@
   </p>
 <% else %>
   <p>
-    会員登録が完了しました。
+    <p>下記のリンクからアカウントメールの確認をお願いいたします。</p>
+    <br>
+    <p><%= link_to 'アカウントメールの確認はこちら', confirmation_url(@resource, confirmation_token: @token) %></p>
+    <br>
+    このURLの有効期限は24時間です。
   </p>
 <% end %>
 
