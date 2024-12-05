@@ -24,4 +24,9 @@ class User < ApplicationRecord
   def is_followed_by?(user)
     reverse_of_relationships.find_by(following_id: user.id).present?
   end
+
+  validates :email, presence: true, uniqueness: { message: "このEメールはすでに使用されています" }
+  validates :username, presence: true, uniqueness: { message: "このユーザー名はすでに使用されています" }
+  validates :full_name, presence: true
+  validates :encrypted_password, presence: true
 end

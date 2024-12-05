@@ -22,7 +22,11 @@
             <%= image_tag "default_icon.png", class:"rounded-circle mt-2 ", alt:"メニュー", size:"32x32"%>
             <%= m.user.username %>さん
           </div>
-          <div class="chat-hukidashi"> <strong><%= m.content %></strong> <br>
+          <div class="chat-hukidashi"> 
+            <div class="text-wrap">
+              <strong><%= m.content %></strong>
+            </div>
+            <br>
             <%= m.created_at.strftime("%Y-%m-%d %H:%M")%>
           </div>
         </div>
@@ -31,7 +35,7 @@
   </div>
   <div class="posts">
     <%= form_for @message do |f| %>
-      <%= f.text_field :content, placeholder: "メッセージを入力して下さい" , size: 70, class:"form-text-field" %>
+      <%= f.text_field :content, placeholder: "メッセージを入力して下さい" , size: 70, maxlength: 70, class:"form-text-field" %>
         <%= f.hidden_field :room_id, value: @room.id %>
           <%= f.submit "投稿",class: 'form-submit'%>
     <% end %>

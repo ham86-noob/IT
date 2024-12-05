@@ -2,15 +2,18 @@ class RelationshipsController < ApplicationController
     before_action :authenticate_user!
 
     def create
-        unless Relationship.exists?(follower_id: params[:user_id], following_id: current_user.id)
-            following = Relationship.create(follower_id: params[:user_id], following_id: current_user.id)
+        following = Relationship.new(follower_id: params[:user_id], following_id: current_user.id)
+        if following.id.present?
+            following.save
         end
-        redirect_to request.referer
+        redirect_back(fallback_location: root_path)
     end
   
     def destroy
       following = Relationship.find_by(follower_id: params[:user_id], following_id: current_user.id)
-      following.destroy
-      redirect_to request.referer
+      if following.id.present?
+        following.destroy
+      end
+      redirect_back(fallback_location: root_path)
     end
 end
