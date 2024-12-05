@@ -3,10 +3,12 @@ class RoomsController < ApplicationController
 
     def create
         room = Room.new(user_id1: params[:entry][:user_id], user_id2: current_user.id)
-        if room.id.present?
-            Entry.create(room_id: room.id, user_id: current_user.id)
-            Entry.create(params.require(:entry).permit(:user_id, :room_id).merge(room_id: room.id))
-            room.save
+        if room.valid?
+            ActiveRecord::Base.transaction do
+                room.save!
+                Entry.create!(room_id: room.id, user_id: current_user.id)
+                Entry.create!(params.require(:entry).permit(:user_id, :room_id).merge(room_id: room.id))
+            end
             redirect_to room_path(room.id)
         else
             redirect_back(fallback_location: root_path)

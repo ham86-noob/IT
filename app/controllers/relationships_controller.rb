@@ -3,7 +3,7 @@ class RelationshipsController < ApplicationController
 
     def create
         following = Relationship.new(follower_id: params[:user_id], following_id: current_user.id)
-        if following.id.present?
+        if following.present?
             following.save
         end
         redirect_back(fallback_location: root_path)
