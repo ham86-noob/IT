@@ -24,7 +24,71 @@
   </head>
 
   <body>
-    <%= yield %>
+    <% if show_header? %>
+      <div class="container my-4">
+      <!-- ヘッダー -->
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1><%= link_to "I T", root_path %></h1>
+
+        <!-- 検索フォーム -->
+        
+        <input type="text" class="form-control d-flex me-2 w-50" placeholder="キーワードやクリエイターで検索" name="keyword">
+        <%= link_to '検索', root_path, class: 'btn btn-primary' %>
+
+        <div class="d-flex">
+          <% if user_signed_in? %>
+            <button type="button" class="btn dropdown-toggle border-white text-white" id="dropdownMenu" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expaneded="false">
+              <%= image_tag "default_icon.png", class:"rounded-circle", alt:"メニュー", size:"32x32"%>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
+              <li class="">
+                <div class="row">
+                  <div class="col ms-3 mt-1 clearfix">
+                    <%= image_tag "default_icon.png", class:"rounded-circle mt-2 ", alt:"メニュー", size:"32x32"%>
+                    <div class="col float-end ms-3 me-2">
+                      <span class="fw-bolder"><%= current_user.username %></span>
+                      <p class="text-sm-start fw-light">クリエイターページ</p>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li><hr class="dropdown-divider"></li>
+              <li><%= button_to '自分の記事', root_path, method: :get, class:"btn btn-light w-100" %></li>
+              <li><%= button_to 'スキした記事', root_path, method: :get, class:"btn btn-light w-100" %></li>
+              <li><%= button_to 'ログアウト', destroy_user_session_path, method: :delete, class:"btn btn-light w-100" %></li>
+            </ul>
+              
+            <%#= link_to 'ログアウト', destroy_user_session_path, method: :delete, class: 'btn btn-danger' %>
+          <% else %>
+            <!-- ログイン・登録ボタン -->
+            <%= link_to "会員登録", new_user_registration_path, class: "btn btn-success me-2" %>
+            <%= link_to "ログイン", new_user_session_path, class: "btn btn-secondary" %>
+          <% end %>
+        </div>
+      </div>
+
+      <!-- メインコンテンツ -->
+      <div class="row">
+        <!-- サイドバー -->
+        <div class="col-3">
+          <ul class="list-group">
+            <li class="list-group-item "><span class="text-muted">つかう</span></li>
+            <li class="list-group-item"><%= link_to 'つくる', new_article_path %></li>
+            <li class="list-group-item"><%= link_to 'みる', root_path %></li>
+            <li class="list-group-item"><span class="text-muted">おきにいり</span></li>
+            <li class="list-group-item"><%= link_to 'フォローする', users_path %></li>
+          </ul>
+        </div>
+
+        <div class="col-9">
+          <%= yield %>
+        </div>
+        
+      </div>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <% else %>
+      <%= yield %>
+    <% end %>
   </body>
 
 </html>

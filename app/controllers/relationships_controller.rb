@@ -2,8 +2,9 @@ class RelationshipsController < ApplicationController
     before_action :authenticate_user!
 
     def create
-        following = Relationship.new(follower_id: params[:user_id], following_id: current_user.id)
-        if following.present?
+        following = Relationship.create(follower_id: params[:user_id], following_id: current_user.id)
+        
+        if following.valid?
             following.save
         end
         redirect_back(fallback_location: root_path)

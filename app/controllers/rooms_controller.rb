@@ -2,7 +2,8 @@ class RoomsController < ApplicationController
     before_action :authenticate_user!
 
     def create
-        room = Room.new(user_id1: params[:entry][:user_id], user_id2: current_user.id)
+        room = Room.create(user_id1: params[:entry][:user_id], user_id2: current_user.id)
+
         if room.valid?
             ActiveRecord::Base.transaction do
                 room.save!

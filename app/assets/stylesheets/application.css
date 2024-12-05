@@ -29,3 +29,9 @@
   .article-card {
     min-width: 160px
   }
+
+  .article-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+  }

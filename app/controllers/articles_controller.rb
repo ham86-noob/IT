@@ -1,4 +1,6 @@
 class ArticlesController < ApplicationController
+    before_action :authenticate_user!, only: [:mockup]
+
     def search
         #params[:keyword]を使って検索
     end
@@ -23,6 +25,10 @@ class ArticlesController < ApplicationController
         else
             #使うつもりはないエラー
         end
+    end
+
+    def show
+        @article = Article.find(params[:id])
     end
 
     private

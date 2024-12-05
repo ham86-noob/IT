@@ -1,5 +1,5 @@
 class Room < ApplicationRecord
-    before_save :sort_ids
+    before_validation :sort_ids
 
     has_many :messages, dependent: :destroy
     has_many :entries, dependent: :destroy

@@ -1,16 +1,18 @@
 <div class="mb-4 px-2 article-card">
-  <div class="card">
-    <% if article.image.present? %>
-      <%= image_tag article.image, size: "160x90", class:"card-img-top", alt: "エラー"%>
-    <% else %>
-      <%= image_tag "160x90.png", size: "160x90" , class:"card-img-top", alt: "エラー" %>
-    <% end %>
-    <div class="card-body">
-      <p class="card-text text-truncate"><%= article.title %></p>
-      <div class="d-flex justify-content-between">
-        <span>❤️ <%= article.like.count %></span>
-        <span class="fw-light"><%= time_ago_in_words(article.created_at) %></span>
+  <%= link_to article_path(article), class:"article-link" do %>
+    <div class="card">
+      <% if article.image.present? %>
+        <%= image_tag article.image, size: "160x90", class:"card-img-top", alt: "エラー"%>
+      <% else %>
+        <%= image_tag "160x90.png", size: "160x90" , class:"card-img-top", alt: "エラー" %>
+      <% end %>
+      <div class="card-body">
+        <p class="card-text text-truncate"><%= article.title %></p>
+        <div class="d-flex justify-content-between">
+          <span>❤️ <%= article.like.count %></span>
+          <span class="fw-light"><%= time_ago_in_words(article.created_at) %></span>
+        </div>
       </div>
     </div>
-  </div>
+  <% end %>
 </div>
