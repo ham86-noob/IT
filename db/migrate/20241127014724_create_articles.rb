@@ -6,6 +6,7 @@ class CreateArticles < ActiveRecord::Migration[8.0]
       t.text :content
       t.boolean :featured, default: false
       t.integer :comments_count, default: 0
+      t.string :linkurl, default: "", null: false
 
       t.timestamps
     end

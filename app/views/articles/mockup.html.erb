@@ -1,8 +1,44 @@
 
 <h3 class="mb-3">今日の注目記事</h3>
-<div class="d-flex">
+<div class="row card-container">
   <%= render partial: "/articles/mockup_article_card", 
           collection: @featured_articles, 
           as: :article %>
   <!-- 他のカードも追加可能 -->
 </div>
+<% if user_signed_in? %>
+  <h3 class="mb-3">フォロワーの注目記事</h3>
+  <div class="row card-container">
+  <%= render partial: "/articles/mockup_article_card", 
+          collection: @followings_articles, 
+          as: :article %>
+  <!-- 他のカードも追加可能 -->
+  </div>
+<% end %>
+<script>
+  function adjustCards() {
+    const containers = document.querySelectorAll('.card-container');
+
+    // ウィンドウ幅に応じたカード数
+    let visibleCards = 1;
+    if (window.innerWidth >= 768) visibleCards = 2; // 中画面なら2枚
+    if (window.innerWidth >= 1024) visibleCards = 3; // 大画面なら3枚
+    if (window.innerWidth >= 1200) visibleCards = 4; // 大画面なら3枚
+
+    // 各コンテナに対して処理を実行
+    containers.forEach(container => {
+      const cards = container.querySelectorAll('.article-card'); // コンテナ内のカードを取得
+
+      // カードを表示/非表示に切り替える
+      cards.forEach((card, index) => {
+        card.style.display = index < visibleCards ? 'block' : 'none';
+      });
+    });
+  }
+
+  // 初回実行
+  adjustCards();
+
+  // ウィンドウサイズ変更時に実行
+  window.addEventListener('resize', adjustCards);
+</script>

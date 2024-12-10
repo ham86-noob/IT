@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_12_05_032048) do
+ActiveRecord::Schema[8.0].define(version: 2024_12_10_063151) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -50,6 +50,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_05_032048) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id"
+    t.string "linkurl", default: "", null: false
     t.index ["user_id"], name: "index_articles_on_user_id"
   end
 
@@ -104,6 +105,11 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_05_032048) do
     t.index ["user_id1", "user_id2"], name: "index_rooms_on_user_id1_and_user_id2", unique: true
   end
 
+  create_table "stages", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -121,6 +127,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_05_032048) do
     t.integer "failed_attempts", default: 0, null: false
     t.string "unlock_token"
     t.datetime "locked_at"
+    t.string "selfIntroduction", default: ""
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

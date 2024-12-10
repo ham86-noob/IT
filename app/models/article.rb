@@ -6,5 +6,5 @@ class Article < ApplicationRecord
   validates :title, presence: true
   validates :content, presence: true
 
-  scope :featured, -> { where(featured: true).order(created_at: :desc) }
+  scope :featured, -> (count = 10) { where(featured: true).order(created_at: :desc).limit(count) }
 end

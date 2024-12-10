@@ -5,6 +5,8 @@ class User < ApplicationRecord
         :recoverable, :rememberable, :validatable,
         :confirmable, :lockable, :timeoutable
 
+  has_one_attached :avatar, dependent: :destroy
+
   has_many :article, dependent: :nullify
 
   has_many :messages, dependent: :destroy

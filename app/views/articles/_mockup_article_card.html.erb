@@ -1,18 +1,34 @@
-<div class="mb-4 px-2 article-card">
-  <%= link_to article_path(article), class:"article-link" do %>
+<div class="col-12 col-md-6 col-lg-4 col-xl-3">
+  <div class="mb-4 px-2 article-card">
     <div class="card">
+      <%= link_to article_path(article), class:"article-link" do %>
       <% if article.image.present? %>
         <%= image_tag article.image, size: "160x90", class:"card-img-top", alt: "エラー"%>
       <% else %>
         <%= image_tag "160x90.png", size: "160x90" , class:"card-img-top", alt: "エラー" %>
       <% end %>
       <div class="card-body">
-        <p class="card-text text-truncate"><%= article.title %></p>
-        <div class="d-flex justify-content-between">
-          <span>❤️ <%= article.like.count %></span>
-          <span class="fw-light"><%= time_ago_in_words(article.created_at) %></span>
+        <p class="card-text fw-bolder text-truncate"><%= article.title %></p>
+        <br>
+        <div class="d-flex justify-content-between fw-light">
+          <div class="d-flex">
+            <% if User.find(article.user_id).avatar.present? %>
+              <%= image_tag User.find(article.user_id).avatar, size:"24x24", class:"rounded-circle me-2" %>
+            <% else %>
+              <%= image_tag "default_icon.png", size:"24x24", class:"rounded-circle me-2" %>
+            <% end %>
+            <%= User.find(article.user_id).username %>
+          </div>
+          <span class=""><%= time_ago_in_words(article.created_at) %></span>
         </div>
       </div>
+      <% end %>
+      <div class="d-flex justify-content-left ms-3">
+        <%= link_to toggle_like_article_path(article), data: { "turbo-method": :post }, class:"article-link" do %>
+          <%= image_tag "Heart.png", size:"20x20" %>
+        <% end %>
+        <span class="ms-1"><%= article.like.count %></span>
+      </div>
     </div>
-  <% end %>
+  </div>
 </div>
