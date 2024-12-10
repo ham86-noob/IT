@@ -75,4 +75,4 @@ end
 
 gem "devise", "~> 4.9"
 
-gem "tailwindcss-rails", "~> 3.0"
+gem 'image_processing', '~> 1.2'

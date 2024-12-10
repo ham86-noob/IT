@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_12_10_063151) do
+ActiveRecord::Schema[8.0].define(version: 2024_12_10_093424) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -51,6 +51,10 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_10_063151) do
     t.datetime "updated_at", null: false
     t.bigint "user_id"
     t.string "linkurl", default: "", null: false
+    t.integer "likes_count"
+    t.string "image_file_name"
+    t.integer "image_file_size"
+    t.string "image_content_type"
     t.index ["user_id"], name: "index_articles_on_user_id"
   end
 

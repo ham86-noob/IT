@@ -6,7 +6,7 @@
           as: :article %>
   <!-- 他のカードも追加可能 -->
 </div>
-<% if user_signed_in? %>
+<% unless @followings_articles.empty? %>
   <h3 class="mb-3">フォロワーの注目記事</h3>
   <div class="row card-container">
   <%= render partial: "/articles/mockup_article_card", 

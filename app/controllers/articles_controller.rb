@@ -2,18 +2,17 @@ class ArticlesController < ApplicationController
     before_action :authenticate_user!, only: [:new, :create]
 
     def mockup
-        @featured_articles = Article.featured(6)
+        @featured_articles = Article.includes(:user).where(featured: true).order(id: :desc).limit(4)
+        
+        @followings_articles = []
 
         if user_signed_in?
-            @followings_articles = []
-            current_user.followings.each do |fu|
-                @followings_articles.push(Article.where(user_id: fu.id))
-            end
-            @followings_articles.flatten!
-            @followings_articles = @followings_articles.sort_by{|article| -article[:id]}
-            @followings_articles = @followings_articles.first(6)
+            # フォローしているユーザーのIDを取得
+            following_ids = current_user.followings.pluck(:id)
+
+            # フォローしているユーザーの記事を取得し、関連情報をプリロード
+            @followings_articles = Article.where(user_id: following_ids).order(id: :desc).limit(4)
         end 
-        @categories = Category.all
     end
 
     def new
@@ -26,13 +25,13 @@ class ArticlesController < ApplicationController
     end
 
     def show
-        @article = Article.find(params[:id])
+        @article = Article.includes(image_attachment: :blob).find(params[:id])
     end
 
     def toggle_like
         if user_signed_in?
-            if Like.where(user_id: current_user.id, article_id: params[:id]).present?
-                like = Like.find_by(user_id: current_user.id, article_id: params[:id])
+            like = Article.find(params[:id]).likes.find_by(user_id: current_user.id)
+            if like
                 like.destroy
             else
                 Like.create(user_id: current_user.id, article_id: params[:id])
