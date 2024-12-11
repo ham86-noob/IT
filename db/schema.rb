@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_12_10_093424) do
+ActiveRecord::Schema[8.0].define(version: 2024_12_11_084116) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -51,17 +51,19 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_10_093424) do
     t.datetime "updated_at", null: false
     t.bigint "user_id"
     t.string "linkurl", default: "", null: false
-    t.integer "likes_count"
+    t.integer "likes_count", default: 0
     t.string "image_file_name"
     t.integer "image_file_size"
     t.string "image_content_type"
+    t.bigint "subcategory_id"
+    t.index ["subcategory_id"], name: "index_articles_on_subcategory_id"
     t.index ["user_id"], name: "index_articles_on_user_id"
   end
 
   create_table "categories", force: :cascade do |t|
-    t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "name", null: false
   end
 
   create_table "entries", force: :cascade do |t|
@@ -91,6 +93,20 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_10_093424) do
     t.index ["user_id"], name: "index_messages_on_user_id"
   end
 
+  create_table "notifications", force: :cascade do |t|
+    t.bigint "recipient_id", null: false
+    t.bigint "actor_id"
+    t.string "notifiable_type", null: false
+    t.bigint "notifiable_id", null: false
+    t.string "action", null: false
+    t.boolean "read", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["actor_id"], name: "index_notifications_on_actor_id"
+    t.index ["notifiable_type", "notifiable_id"], name: "index_notifications_on_notifiable"
+    t.index ["recipient_id"], name: "index_notifications_on_recipient_id"
+  end
+
   create_table "relationships", force: :cascade do |t|
     t.bigint "following_id"
     t.bigint "follower_id"
@@ -114,6 +130,14 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_10_093424) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "subcategories", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "category_id"
+    t.index ["category_id"], name: "index_subcategories_on_category_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -132,6 +156,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_10_093424) do
     t.string "unlock_token"
     t.datetime "locked_at"
     t.string "selfIntroduction", default: ""
+    t.integer "notifications_count", default: 0
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
@@ -141,12 +166,16 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_10_093424) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "articles", "subcategories"
   add_foreign_key "articles", "users"
   add_foreign_key "entries", "rooms"
   add_foreign_key "entries", "users"
   add_foreign_key "likes", "articles"
   add_foreign_key "messages", "rooms"
   add_foreign_key "messages", "users"
+  add_foreign_key "notifications", "users", column: "actor_id"
+  add_foreign_key "notifications", "users", column: "recipient_id"
   add_foreign_key "relationships", "users", column: "follower_id"
   add_foreign_key "relationships", "users", column: "following_id"
+  add_foreign_key "subcategories", "categories"
 end

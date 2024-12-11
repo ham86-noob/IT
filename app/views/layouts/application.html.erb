@@ -38,6 +38,23 @@
 
         <div class="d-flex">
           <% if user_signed_in? %>
+            <button type="button" class="btn dropdown-toggle border-white text-white" id="dropdownBell" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expaneded="false">
+              <span style="position: relative;">
+                <%= image_tag "Bell.png", class:"rounded-circle", alt:"ベル", size:"24x24"%>
+                <% if current_user.notifications_count > 0 %>
+                  <span class="badge rounded-pill bg-danger" style="position: absolute; top: -36px; left: 5px;"><%=current_user.notifications_count%></span>
+                <% end %>
+              </span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownBell">
+              <li class="">
+                通知１
+              </li>
+              <li><hr class="dropdown-divider"></li>
+              <li class="">
+                通知２
+              </li>
+            </ul>
             <button type="button" class="btn dropdown-toggle border-white text-white" id="dropdownMenu" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expaneded="false">
               <%= image_tag "default_icon.png", class:"rounded-circle", alt:"メニュー", size:"32x32"%>
             </button>
@@ -54,8 +71,6 @@
                 </div>
               </li>
               <li><hr class="dropdown-divider"></li>
-              <li><%= button_to '自分の記事', root_path, method: :get, class:"btn btn-light w-100" %></li>
-              <li><%= button_to 'スキした記事', root_path, method: :get, class:"btn btn-light w-100" %></li>
               <li><%= button_to 'ログアウト', destroy_user_session_path, method: :delete, class:"btn btn-light w-100" %></li>
             </ul>
               

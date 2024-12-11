@@ -8,6 +8,8 @@ class DeviseCreateUsers < ActiveRecord::Migration[8.0]
       t.string :username,           null: false, default: ""
       t.string :selfIntroduction,  default: ""
 
+      t.integer :notifications_count, default: 0
+
       ## Database authenticatable
       t.string :email,              null: false, default: ""
       t.string :encrypted_password, null: false, default: ""

@@ -9,6 +9,8 @@ class User < ApplicationRecord
 
   has_many :article, dependent: :nullify
 
+  has_many :notification, dependent: :destroy
+
   has_many :messages, dependent: :destroy
   has_many :entries, dependent: :destroy
 

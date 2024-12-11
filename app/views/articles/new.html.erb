@@ -1,5 +1,5 @@
 <h3 class="mb-3">記事の作成</h3>
-<%= form_with url: articles_path, scope: :articles do |f| %>
+<%= form_with url: articles_path, scope: :article do |f| %>
   <%= f.label :title, "タイトル" %>
   <%= f.text_field :title, class: "form-control me-2" %>
   <%= f.label :content, "コンテンツ" %>

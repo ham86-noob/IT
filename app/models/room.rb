@@ -3,6 +3,7 @@ class Room < ApplicationRecord
 
     has_many :messages, dependent: :destroy
     has_many :entries, dependent: :destroy
+    has_many :notifications, as: :notifiable, dependent: :destroy
 
     validates :user_id1, presence: true
     validates :user_id2, presence: true

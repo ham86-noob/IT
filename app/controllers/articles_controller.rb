@@ -20,7 +20,6 @@ class ArticlesController < ApplicationController
 
     def create
         Article.create(articles_params)
-        #user: current_user, title: params[:title], content: params[:content], featured: true)
         redirect_to root_path 
     end
 
@@ -45,6 +44,6 @@ class ArticlesController < ApplicationController
     private
 
     def articles_params
-        params.require(:articles).permit(:title, :content, :image).merge(user_id: current_user.id, featured: true)
+        params.require(:article).permit(:title, :content, :image).merge(user_id: current_user.id, featured: true, subcategory_id: 1)
     end
 end
