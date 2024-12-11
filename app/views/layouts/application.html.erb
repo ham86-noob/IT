@@ -42,7 +42,7 @@
               <span style="position: relative;">
                 <%= image_tag "Bell.png", class:"rounded-circle", alt:"ベル", size:"24x24"%>
                 <% if current_user.notifications_count > 0 %>
-                  <span class="badge rounded-pill bg-danger" style="position: absolute; top: -36px; left: 5px;"><%=current_user.notifications_count%></span>
+                  <span class="badge rounded-pill bg-danger" style="position: absolute; top: -10px; left: 5px;"><%=current_user.notifications_count%></span>
                 <% end %>
               </span>
             </button>
