@@ -1,0 +1,11 @@
+<h3 class="mb-3">小カテゴリの選択</h3>
+<%= form_with model: @article, local: true do |f| %>
+  <%#= f.collection_radio_buttons :id, @categories, :id, :name, class:"form-check"%>
+  <% @subcategories.each_with_index do |c, index| %>
+    <div class="form-check">
+      <%= f.radio_button :subcategory_id, c.id, checked: (index==0) %>
+      <%= f.label :subcategory_id, c.name, for: {value: c.id}%>
+    </div>
+  <% end %>
+  <%= f.submit "次へ", class: "btn btn-outline-primary" %>
+<% end %>

@@ -1,5 +1,5 @@
 <h3 class="mb-3">記事の作成</h3>
-<%= form_with url: articles_path, scope: :article do |f| %>
+<%= form_with url: articles_path, scope: :article, local: true do |f| %>
   <%= f.label :image, "サムネイル" %>
   <%= f.file_field :image, class: "form-control me-2" %>
   <%= f.label :title, "タイトル" %>
@@ -7,6 +7,6 @@
   <%= f.label :content, "コンテンツ" %>
   <%= f.text_area :content, class: "form-control me-2", size:"50x8", maxlength: "400"%>
   <%= f.label :linkurl, "URL" %>
-  <%= f.text_field :linkurl, class: "form-control me-2" %>
+  <%= f.url_field :linkurl, class: "form-control me-2" %>
   <%= f.submit "作成", class: "btn btn-outline-primary"%>
 <% end %>

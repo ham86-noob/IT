@@ -21,19 +21,27 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "posts#index"
 
-  root "articles#mockup"
+  root "articles#index"
 
   #リソースベースのルーティング（以下リソースルーティング）を使うことで、指定のリソースコントローラでよく使われるすべてのルーティングを手軽に宣言できます。
   #resourcesを宣言するだけで、コントローラのindex、show、new、edit、create、update、destroyアクションを個別に宣言しなくても1行で宣言が完了します。
-  resources :articles, only: [:create, :new, :show, :destroy] do
+  resources :articles, only: [:index, :show, :new, :create, :update, :destroy] do
     member do
       get :toggle_like
       post :toggle_like
     end
   end
 
-  resources :categories, only: [:index]
-  resources :subcategories, only: [:show]
+  resources :categories, only: [:index] do
+    collection do
+      get :select
+    end
+  end
+  resources :subcategories, only: [:show] do
+    collection do
+      get :select
+    end
+  end
   resources :messages, only: [:create]
   resources :rooms, only: [:create, :show]
 

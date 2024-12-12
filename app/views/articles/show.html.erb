@@ -5,6 +5,14 @@
 <div>
   <%= @article.content %>
 </div>
+<br>
+<div>
+  <%= @article.subcategory.category.name %>
+</div>
+<br>
+<div>
+  <%= @article.subcategory.name %>
+</div>
 <div>
 <% if current_user.id == @article.user_id %>
   <br>

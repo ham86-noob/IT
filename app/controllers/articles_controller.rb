@@ -1,7 +1,7 @@
 class ArticlesController < ApplicationController
-    before_action :authenticate_user!, only: [:new, :create, :destroy]
+    before_action :authenticate_user!, only: [:new, :update, :create, :destroy]
 
-    def mockup
+    def index
         @featured_articles = Article.includes(:user).where(featured: true).order(id: :desc).limit(4)
         
         @followings_articles = []
@@ -18,9 +18,21 @@ class ArticlesController < ApplicationController
     def new
     end
 
+    def update
+        article = Article.find(params[:id])
+        if current_user.id == article.user_id
+            article.update(update_articles_params)
+        end
+        redirect_to root_path
+    end
+
     def create
-        Article.create(articles_params)
-        redirect_to root_path 
+        article = Article.create(create_articles_params)
+        if article.valid?
+            redirect_to select_categories_path(id: article.id)
+        else
+            redirect_back(fallback_location: root_path)
+        end
     end
 
     def destroy
@@ -49,7 +61,11 @@ class ArticlesController < ApplicationController
 
     private
 
-    def articles_params
+    def create_articles_params
         params.require(:article).permit(:title, :content, :image, :linkurl).merge(user_id: current_user.id, featured: true, subcategory_id: 1)
+    end
+
+    def update_articles_params
+        params.require(:article).permit(:title, :content, :image, :linkurl, :subcategory_id)
     end
 end

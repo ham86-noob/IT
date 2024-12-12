@@ -1,0 +1,29 @@
+<!-- 
+
+<% @categories.each_with_index do |category, index| %>
+  <div class="form-check">
+    <% if index==0 %>
+      <input class="form-check-input" type="radio" id="radio_1_<%= index %>" name="radio_1" value="<%= index %>" checked>
+    <% else %>
+      <input class="form-check-input" type="radio" id="radio_1_<%= index %>" name="radio_1" value="<%= index %>">
+    <% end %>
+    <label class="form-check-label" for="radio_1_<%= index %>">
+      <%= category.name %>
+    </label>
+  </div>
+<% end %>
+
+-->
+
+<h3 class="mb-3">大カテゴリの選択</h3>
+<%= form_with url: select_subcategories_path, local: true, method: :get do |f| %>
+  <%#= f.collection_radio_buttons :id, @categories, :id, :name, class:"form-check"%>
+  <% @categories.each_with_index do |c, index| %>
+    <div class="form-check">
+      <%= f.radio_button :id, c.id, checked: (index==0) %>
+      <%= f.label :id, c.name, for: {value: c.id}%>
+    </div>
+  <% end %>
+  <%= f.hidden_field :article_id, value: @article.id %>
+  <%= f.submit "次へ", class: "btn btn-outline-primary" %>
+<% end %>
