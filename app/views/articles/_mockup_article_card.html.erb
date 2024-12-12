@@ -24,7 +24,7 @@
       </div>
       <% end %>
       <div class="d-flex justify-content-left ms-3">
-        <%= link_to toggle_like_article_path(article), data: { "turbo-method": :post }, class:"article-link" do %>
+        <%= button_to toggle_like_article_path(article), data: { "turbo-method": :post }, class:"article-link" do %>
           <%= image_tag "Heart.png", size:"20x20" %>
         <% end %>
         <span class="ms-1"><%= article.likes_count %></span>

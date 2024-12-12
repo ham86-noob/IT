@@ -12,8 +12,11 @@ development:
   database: <%= ENV['DB_DEV_NAME'] %>
 
 test:
-  <<: *default
-  database: <%= ENV['DB_TEST_NAME'] %>
+  cable: &cable_db
+    <<: *default
+    database: <%= ENV['DB_TEST_NAME'] %>
+  queue: *cable_db
+  cache: *cable_db
 
 production:
   cable: &cable_db

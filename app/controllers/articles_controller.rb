@@ -1,5 +1,5 @@
 class ArticlesController < ApplicationController
-    before_action :authenticate_user!, only: [:new, :create]
+    before_action :authenticate_user!, only: [:new, :create, :destroy]
 
     def mockup
         @featured_articles = Article.includes(:user).where(featured: true).order(id: :desc).limit(4)
@@ -23,6 +23,12 @@ class ArticlesController < ApplicationController
         redirect_to root_path 
     end
 
+    def destroy
+        article = Article.find(params[:id])
+        article.destroy
+        redirect_to root_path
+    end
+
     def show
         @article = Article.includes(image_attachment: :blob).find(params[:id])
     end
@@ -44,6 +50,6 @@ class ArticlesController < ApplicationController
     private
 
     def articles_params
-        params.require(:article).permit(:title, :content, :image).merge(user_id: current_user.id, featured: true, subcategory_id: 1)
+        params.require(:article).permit(:title, :content, :image, :linkurl).merge(user_id: current_user.id, featured: true, subcategory_id: 1)
     end
 end

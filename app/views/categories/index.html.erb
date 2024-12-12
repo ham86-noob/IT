@@ -1,0 +1,5 @@
+<% @categories.each do |category| %>
+  <div>
+    <%= link_to category.name, subcategory_path(category) %>
+  </div>
+<% end %>

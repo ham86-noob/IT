@@ -25,13 +25,15 @@ Rails.application.routes.draw do
 
   #リソースベースのルーティング（以下リソースルーティング）を使うことで、指定のリソースコントローラでよく使われるすべてのルーティングを手軽に宣言できます。
   #resourcesを宣言するだけで、コントローラのindex、show、new、edit、create、update、destroyアクションを個別に宣言しなくても1行で宣言が完了します。
-  resources :articles, only: [:create, :new, :show] do
+  resources :articles, only: [:create, :new, :show, :destroy] do
     member do
       get :toggle_like
       post :toggle_like
     end
   end
 
+  resources :categories, only: [:index]
+  resources :subcategories, only: [:show]
   resources :messages, only: [:create]
   resources :rooms, only: [:create, :show]
 

@@ -8,7 +8,7 @@ class MessagesController < ApplicationController
 
             entries.each do |e|
                 if e.user.id != current_user.id
-                    Notification.create(recipient_id: e.user.id, actor_id: current_user.id, notifiable: @message.room, action: "メッセージ送信")
+                    Notification.create(recipient_id: e.user.id, actor_id: current_user.id, notifiable: @message, action: "メッセージ送信")
                     e.user.update(notifications_count: e.user.notifications_count + 1)
                 end
             end
