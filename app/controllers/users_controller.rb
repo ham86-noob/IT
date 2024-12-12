@@ -34,6 +34,9 @@ class UsersController < ApplicationController
         end
     end
 
+    def update
+    end
+
     def followings
         # フォローしている人の一覧
         @user = User.find(params[:id])
@@ -44,5 +47,8 @@ class UsersController < ApplicationController
         # フォローされている人の一覧    
         @user = User.find(params[:id])
         @users = @user.followers
+    end
+
+    def mypage
     end
 end

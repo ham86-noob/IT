@@ -1,7 +1,12 @@
 <h3 class="mb-3">記事の作成</h3>
 <%= form_with url: articles_path, scope: :article, local: true do |f| %>
-  <%= f.label :image, "サムネイル" %>
-  <%= f.file_field :image, class: "form-control me-2" %>
+  <label class="block size-full">
+    <%= f.file_field :image, id:"file-input", class: "d-none" %>
+    <!-- クリック可能な画像 -->
+    <label for="file-input" style="cursor: pointer;">
+      <%= image_tag "160x90.png", id: "preview-image", class: "img-thumbnail vw-100 vh-25" %>
+    </label>
+  </label>
   <%= f.label :title, "タイトル" %>
   <%= f.text_field :title, class: "form-control me-2" %>
   <%= f.label :content, "コンテンツ" %>
@@ -10,3 +15,22 @@
   <%= f.url_field :linkurl, class: "form-control me-2" %>
   <%= f.submit "作成", class: "btn btn-outline-primary"%>
 <% end %>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const fileInput = document.getElementById("file-input");
+  const previewImage = document.getElementById("preview-image");
+
+  fileInput.addEventListener("change", (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+
+      reader.onload = (e) => {
+        previewImage.src = e.target.result;
+      };
+
+      reader.readAsDataURL(file);
+    }
+  });
+});
+</script>
