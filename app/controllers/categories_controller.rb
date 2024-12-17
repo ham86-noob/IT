@@ -4,6 +4,6 @@ class CategoriesController < ApplicationController
     end
     def select
         @categories = Category.all
-        @article = Article.find(params[:id])
+        @article = Article.find_by(uuid: params[:uuid])
     end
 end

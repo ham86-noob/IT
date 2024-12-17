@@ -17,11 +17,19 @@ class RoomsController < ApplicationController
     end
 
     def show
-        @room = Room.find(params[:id])
+        @room = Room.find_by(uuid: params[:uuid])
         if Entry.where(user_id: current_user.id,room_id: @room.id).present?
             @messages = @room.messages
             @message = Message.new
             @entries = @room.entries
+
+            @entries.each do |e|
+                if e.user.id != current_user.id
+                    @sender = current_user
+                    @receiver = e.user
+                    break
+                end
+            end
         else
             redirect_back(fallback_location: root_path)
         end

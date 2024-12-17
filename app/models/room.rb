@@ -1,5 +1,10 @@
 class Room < ApplicationRecord
     before_validation :sort_ids
+    before_create :generate_uuid
+
+    def to_param
+        uuid
+    end
 
     has_many :messages, dependent: :destroy
     has_many :entries, dependent: :destroy
@@ -15,5 +20,9 @@ class Room < ApplicationRecord
         if user_id1 > user_id2
             self.user_id1, self.user_id2 = user_id2, user_id1
         end
+    end
+
+    def generate_uuid
+        self.uuid = SecureRandom.hex(8)
     end
 end

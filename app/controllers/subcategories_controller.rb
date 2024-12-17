@@ -4,6 +4,6 @@ class SubcategoriesController < ApplicationController
     end
     def select
         @subcategories = Category.find(params[:id]).subcategories
-        @article = Article.find(params[:article_id])
+        @article = Article.find_by(uuid: params[:article_uuid])
     end
 end

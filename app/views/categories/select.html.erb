@@ -24,6 +24,6 @@
       <%= f.label :id, c.name, for: {value: c.id}%>
     </div>
   <% end %>
-  <%= f.hidden_field :article_id, value: @article.id %>
+  <%= f.hidden_field :article_uuid, value: @article.uuid %>
   <%= f.submit "次へ", class: "btn btn-outline-primary" %>
 <% end %>

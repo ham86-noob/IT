@@ -6,7 +6,7 @@ class UsersController < ApplicationController
     end
 
     def show
-        @user=User.find(params[:id])
+        @user=User.find_by(uuid: params[:uuid])
 
         #相互フォローならば
         @canCreateRoom = Relationship.exists?(follower_id: current_user.id, following_id: @user.id) && Relationship.exists?(follower_id: @user.id, following_id: current_user.id)
@@ -16,17 +16,18 @@ class UsersController < ApplicationController
 
         #同室の部屋があるかどうかの確認
         unless @user.id == current_user.id
-            currentUserEntry.each do |cu|
-                userEntry.each do |u|
-                    if cu.room_id == u.room_id then
+            currentUserEntry.each do |ce|
+                userEntry.each do |e|
+                    if ce.room_id == e.room_id then
                         @isRoom = true
-                        @roomId = cu.room_id
+                        @room = ce.room
+
+                        # @room.uuid = SecureRandom.hex(8)
+                        # @room.save
                     end
                 end
             end
             if @isRoom
-                @room = Room.new
-                @entry = Entry.new
             else
                 @room = Room.new
                 @entry = Entry.new
@@ -39,13 +40,13 @@ class UsersController < ApplicationController
 
     def followings
         # フォローしている人の一覧
-        @user = User.find(params[:id])
+        @user = User.find_by(uuid: params[:uuid])
         @users = @user.followings
     end
 
     def followers
         # フォローされている人の一覧    
-        @user = User.find(params[:id])
+        @user = User.find_by(uuid: params[:uuid])
         @users = @user.followers
     end
 

@@ -1,4 +1,10 @@
 class User < ApplicationRecord
+  before_create :generate_uuid
+  
+  def to_param
+    uuid
+  end
+  
   # Include default devise modules. Others available are:
   #  :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -33,4 +39,10 @@ class User < ApplicationRecord
   validates :username, presence: true, uniqueness: { message: "このユーザー名はすでに使用されています" }
   validates :full_name, presence: true
   validates :encrypted_password, presence: true
+
+  private
+
+  def generate_uuid
+    self.uuid = SecureRandom.hex(8)
+  end
 end

@@ -13,10 +13,14 @@
 <div>
   <%= @article.subcategory.name %>
 </div>
+<br>
+<!-- 別タブで開く target: :_blank, rel: "noopener noreferrer" -->
 <div>
-<% if current_user.id == @article.user_id %>
+<%= link_to @article.linkurl, @article.linkurl, target: :_blank, rel: "noopener noreferrer"%>
+</div>
+
+<% if user_signed_in? && current_user.id == @article.user_id %>
   <br>
-  <!-- 別タブで開く target: :_blank, rel: "noopener noreferrer" -->
-  <%= link_to @article.linkurl, @article.linkurl, target: :_blank, rel: "noopener noreferrer"%>
+  <%= button_to "編集", edit_article_path, method: :get, class:"btn btn-secondary" %>
+  <%= button_to "削除", article_path, method: :delete, class:"btn btn-danger" %>
 <% end %>
-<%= button_to "削除", article_path, method: :delete, class:"btn btn-danger" %>

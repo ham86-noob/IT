@@ -21,7 +21,7 @@
 
 <% else %>
   <% if @isRoom %>
-    <p><a href="/rooms/<%= @roomId %>">チャットへ</a>
+    <p><%= link_to "チャットへ", room_path(@room) %>
     <% form_for @room do |f| %>
       <%= fields_for @entry do |e| %>
         <%= e.hidden_field :user_id, :value=> @user.id %>

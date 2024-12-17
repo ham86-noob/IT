@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_12_11_084116) do
+ActiveRecord::Schema[8.0].define(version: 2024_12_13_034430) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -56,8 +56,10 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_11_084116) do
     t.integer "image_file_size"
     t.string "image_content_type"
     t.bigint "subcategory_id"
+    t.string "uuid"
     t.index ["subcategory_id"], name: "index_articles_on_subcategory_id"
     t.index ["user_id"], name: "index_articles_on_user_id"
+    t.index ["uuid"], name: "index_articles_on_uuid", unique: true
   end
 
   create_table "categories", force: :cascade do |t|
@@ -122,7 +124,9 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_11_084116) do
     t.datetime "updated_at", null: false
     t.integer "user_id1", null: false
     t.integer "user_id2", null: false
+    t.string "uuid"
     t.index ["user_id1", "user_id2"], name: "index_rooms_on_user_id1_and_user_id2", unique: true
+    t.index ["uuid"], name: "index_rooms_on_uuid", unique: true
   end
 
   create_table "stages", force: :cascade do |t|
@@ -157,11 +161,13 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_11_084116) do
     t.datetime "locked_at"
     t.string "selfIntroduction", default: ""
     t.integer "notifications_count", default: 0
+    t.string "uuid"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
     t.index ["username"], name: "index_users_on_username", unique: true
+    t.index ["uuid"], name: "index_users_on_uuid", unique: true
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"

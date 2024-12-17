@@ -7,6 +7,14 @@ default: &default
   host: <%= ENV['DB_HOST'] %>
   port: <%= ENV['DB_PORT'] %>
 
+default: &local
+  adapter: sqlite3
+  encoding: utf8
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  username: root
+  password:
+  socket: /tmp/mysql.sock
+
 development:
   <<: *default
   database: <%= ENV['DB_DEV_NAME'] %>

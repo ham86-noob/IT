@@ -1,39 +1,46 @@
-<h4 class="rooms-title">気になる同士</h4>
-<% @entries.each do |e| %>
+<h4 class="rooms-title">チャットルーム</h4>
+<div class="members d-flex">
   <div class="user-name">
   <strong>
-   <%= image_tag "default_icon.png", class:"rounded-circle mt-2 ", alt:"メニュー", size:"32x32"%>
-      <a class="rooms-user-link" href="/users/<%= e.user.id %>">
-        <%= e.user.username %>さん
-      </a>
+    <%= image_tag "default_icon.png", class:"rounded-circle mt-2 ", alt:"メニュー", size:"32x32"%>
+      <%= link_to @receiver.username + "さん", user_path(@receiver), class:"rooms-user-link" %>
   </strong>
   </div>
-<% end %>
+</div>
 <hr>
 <div class="chats">
-  <div class="chat">
+  <div class="chat" style="height: 60vh;">
     <% if @messages.present? %>
       <% @messages.each do |m| %>
-        <div class="chat-box">
-          <div class="chat-face">
-            <%= image_tag "default_icon.png", class:"rounded-circle mt-2 ", alt:"メニュー", size:"32x32"%>
-            <%= m.user.username %>さん
-          </div>
-          <div class="chat-hukidashi"> 
-            <div class="text-wrap">
-              <strong><%= m.content %></strong>
+        <% if m.user_id == @sender.id %>
+          <div class="chat-container d-flex justify-content-end p-3">
+        <% else %>
+          <div class="chat-container d-flex justify-content-start p-3">
+        <% end %>
+          <div class="chat-box bg-light p-2">
+            <div class="chat-face"> 
+              <%= image_tag "default_icon.png", class:"rounded-circle mt-2 ", alt:"メニュー", size:"24x24"%>
+              <%= m.user.username %>
             </div>
-            <br>
-            <%= time_ago_in_words(m.created_at) %>前
+            <div class="chat-hukidashi"> 
+              <div class="text-wrap">
+                <strong><%= m.content %></strong>
+              </div>
+              <br>
+              <div class="timeago-text">
+                <%= time_ago_in_words(m.created_at) %>前
+              </div>
+            </div>
           </div>
         </div>
       <% end %>
     <% end %>
   </div>
+  <hr>
   <div class="posts">
     <%= form_for @message do |f| %>
       <%= f.text_field :content, placeholder: "メッセージを入力して下さい" , size: 70, maxlength: 70, class:"form-text-field" %>
-        <%= f.hidden_field :room_id, value: @room.id %>
+        <%= f.hidden_field :room_uuid, value: @room.uuid %>
           <%= f.submit "投稿",class: "form-submit"%>
     <% end %>
   </div>
